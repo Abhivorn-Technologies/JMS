@@ -59,7 +59,7 @@ export default function AboutPage() {
                 </p>
               </FadeIn>
             </div>
-            <FadeIn delay={0.4} direction="left" className="w-full lg:w-1/2 relative h-[400px] lg:h-auto">
+            <FadeIn delay={0.4} direction="left" className="w-full lg:w-1/2 relative aspect-[4/3]">
               <div className="absolute inset-0 bg-primary/5 translate-x-6 translate-y-6 rounded-[2.5rem]"></div>
               <Image 
                 src="/images/facilities_intro.png" 
@@ -67,7 +67,7 @@ export default function AboutPage() {
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="relative w-full aspect-[4/3] object-cover rounded-[2.5rem] shadow-2xl" 
+                className="object-cover rounded-[2.5rem] shadow-2xl" 
               />
             </FadeIn>
           </div>
