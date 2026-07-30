@@ -3,8 +3,36 @@ import Image from 'next/image';
 import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
 import { Button } from '@/components/UI/Button';
+import { unstable_cache } from 'next/cache';
 
-export const dynamic = 'force-dynamic';
+const getCachedProducts = unstable_cache(
+  async (search: string, categoryParam: string, page: number, limit: number) => {
+    try {
+      await dbConnect();
+      let query: any = {};
+      if (search) query.name = { $regex: search, $options: 'i' };
+      if (categoryParam !== 'All') query.category = categoryParam;
+      
+      const totalProducts = await Product.countDocuments(query);
+      const products = await Product.find(query)
+        .sort({ createdAt: -1 })
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .lean();
+        
+      return { 
+        totalProducts, 
+        products: JSON.parse(JSON.stringify(products)),
+        error: false
+      };
+    } catch (error) {
+      console.error("Database connection failed, using mock data for UI preview", error);
+      return { totalProducts: 0, products: [], error: true };
+    }
+  },
+  ['products-db-cache'],
+  { revalidate: 60 } // Revalidates cache every 60 seconds
+);
 
 export default async function ProductsPage(props: {
   searchParams?: Promise<{ search?: string; page?: string; category?: string }>;
@@ -14,29 +42,14 @@ export default async function ProductsPage(props: {
   const categoryParam = searchParams?.category || 'All';
   const page = parseInt(searchParams?.page || '1');
   const limit = 4; // Exactly 4 items per page
-  let totalProducts = 0;
-  let totalPages = 1;
-
-  let products: any[] = [];
-  try {
-    await dbConnect();
-    let query: any = {};
-    if (search) query.name = { $regex: search, $options: 'i' };
-    if (categoryParam !== 'All') query.category = categoryParam;
-    
-    totalProducts = await Product.countDocuments(query);
-    totalPages = Math.ceil(totalProducts / limit);
-    products = await Product.find(query)
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * limit) // Traditional pagination
-      .limit(limit)
-      .lean();
-  } catch (error) {
-    console.error("Database connection failed, using mock data for UI preview", error);
-  }
+  const { totalProducts: dbTotal, products: dbProducts, error } = await getCachedProducts(search, categoryParam, page, limit);
+  
+  let totalProducts = dbTotal;
+  let totalPages = Math.ceil(totalProducts / limit) || 1;
+  let products = dbProducts;
 
   // Mock Data Fallback
-  if (products.length === 0) {
+  if (products.length === 0 || error) {
     const allMockProducts = [
       {
         _id: 'mock1',
