@@ -25,11 +25,8 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2 sm:space-x-3 text-2xl font-bold text-forest">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-serif shadow-lg text-sm sm:text-base">
-            JMS
-          </div>
-          <span className="font-serif tracking-tight text-xl sm:text-3xl">Medical</span>
+        <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
+          <span className="font-serif tracking-tight text-3xl sm:text-4xl text-primary font-bold">JMS</span>
         </Link>
 
         {/* Desktop Menu */}

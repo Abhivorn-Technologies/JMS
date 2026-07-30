@@ -7,18 +7,15 @@ export default function NotFound() {
       <div className="bg-white rounded-[32px] p-10 sm:p-16 shadow-[0_8px_30px_rgb(0,0,0,0.04)] max-w-lg w-full flex flex-col items-center text-center">
         
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2 sm:space-x-3 text-2xl font-bold text-forest mb-12">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-serif shadow-lg text-sm sm:text-base">
-            JMS
-          </div>
-          <span className="font-serif tracking-tight text-xl sm:text-3xl">Medical</span>
+        <Link href="/" className="flex items-center justify-center mb-6 hover:opacity-90 transition-opacity">
+          <span className="font-serif tracking-tight text-3xl sm:text-4xl text-primary font-bold">JMS</span>
         </Link>
 
         {/* 404 Graphic */}
-        <div className="flex items-center justify-center space-x-2 text-forest mb-6">
-          <span className="text-[120px] font-black leading-none tracking-tighter">4</span>
-          <HiOutlineExclamationTriangle className="w-24 h-24 stroke-[2.5px] mt-2" />
-          <span className="text-[120px] font-black leading-none tracking-tighter">4</span>
+        <div className="flex items-center justify-center space-x-2 text-primary mb-6 drop-shadow-sm">
+          <span className="text-[80px] sm:text-[90px] font-black leading-none tracking-tighter">4</span>
+          <HiOutlineExclamationTriangle className="w-16 h-16 sm:w-20 sm:h-20 stroke-[2.5px] mt-1" />
+          <span className="text-[80px] sm:text-[90px] font-black leading-none tracking-tighter">4</span>
         </div>
 
         {/* Text content */}
@@ -29,7 +26,7 @@ export default function NotFound() {
 
         {/* Return Button */}
         <Link href="/" className="w-full">
-          <button className="w-full bg-[#0a2f24] hover:bg-[#07241b] text-white py-4 rounded-2xl flex items-center justify-center space-x-2 font-bold transition-all shadow-md">
+          <button className="w-full bg-primary hover:bg-primary-dark text-white py-4 rounded-2xl flex items-center justify-center space-x-2 font-bold transition-all shadow-lg shadow-primary/30 transform hover:-translate-y-1">
             <HiOutlineHome className="w-5 h-5 stroke-2" />
             <span>Return to Homepage</span>
           </button>

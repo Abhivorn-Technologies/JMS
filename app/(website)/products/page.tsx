@@ -217,8 +217,8 @@ export default async function ProductsPage(props: {
               type="text" 
               name="search"
               defaultValue={search}
-              placeholder="Search for medical equipment, monitors, surgical tools..." 
-              className="w-full pl-16 pr-32 py-5 rounded-full bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-600/30 transition-all font-medium text-lg"
+              placeholder="Search medical equipment..." 
+              className="w-full pl-12 sm:pl-16 pr-28 sm:pr-32 py-4 sm:py-5 rounded-full bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-4 focus:ring-blue-600/30 transition-all font-medium text-base sm:text-lg text-ellipsis overflow-hidden whitespace-nowrap"
             />
             {categoryParam !== 'All' && <input type="hidden" name="category" value={categoryParam} />}
             <button type="submit" className="absolute right-2 top-2 bottom-2 bg-blue-600 hover:bg-blue-700 text-white px-8 rounded-full font-bold transition-colors shadow-md">

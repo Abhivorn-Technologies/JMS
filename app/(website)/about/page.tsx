@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/UI/Button";
+import { FadeIn } from "@/components/UI/FadeIn";
 
 const tabs = [
   { id: "mission", label: "Mission & Vision" },
@@ -22,9 +23,9 @@ const gallery = [
   "/images/facilities_intro.png",
   "/images/facilities_hero.png",
   "/images/facilities_endoscopy.png",
-  "/images/WhatsApp Image 2026-07-29 at 10.46.34 AM (1).jpeg",
+  "/images/WhatsApp Image 2026-07-29 at 10.46.34 AM.jpeg",
   "/images/WhatsApp Image 2026-07-29 at 10.46.35 AM (2).jpeg",
-  "/images/WhatsApp Image 2026-07-29 at 10.46.36 AM.jpeg"
+  "/images/WhatsApp Image 2026-07-29 at 10.46.36 AM (2).jpeg"
 ];
 
 export default function AboutPage() {
@@ -38,21 +39,29 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto w-full px-6">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2 space-y-6 lg:space-y-8">
-              <div className="inline-flex items-center gap-4">
-                <div className="w-12 h-px bg-primary"></div>
-                <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs">Excellence in Healthcare</span>
-              </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-forest leading-[1.1] font-serif">
-                About <br/><span className="text-primary italic font-light">JMS Medical</span>
-              </h1>
-              <p className="text-xl text-gray-500 font-light leading-relaxed max-w-lg">
-                Hyderabad's premier destination for specialized medical care. We blend world-class clinical expertise with unparalleled patient comfort.
-              </p>
+              <FadeIn delay={0.1} direction="up">
+                <div className="inline-flex items-center gap-4">
+                  <div className="w-12 h-px bg-primary"></div>
+                  <span className="text-primary font-bold tracking-[0.3em] uppercase text-xs">Excellence in Healthcare</span>
+                </div>
+              </FadeIn>
+              
+              <FadeIn delay={0.3} direction="up">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-forest leading-[1.1] font-serif">
+                  About <br/><span className="text-primary italic font-light">JMS Medical</span>
+                </h1>
+              </FadeIn>
+              
+              <FadeIn delay={0.5} direction="up">
+                <p className="text-xl text-gray-500 font-light leading-relaxed max-w-lg">
+                  Hyderabad's premier destination for specialized medical care. We blend world-class clinical expertise with unparalleled patient comfort.
+                </p>
+              </FadeIn>
             </div>
-            <div className="w-full lg:w-1/2 relative">
+            <FadeIn delay={0.4} direction="left" className="w-full lg:w-1/2 relative">
               <div className="absolute inset-0 bg-primary/5 translate-x-6 translate-y-6 rounded-[2.5rem]"></div>
               <img src="/images/facilities_intro.png" alt="Facility" className="relative w-full aspect-[4/3] object-cover rounded-[2.5rem] shadow-2xl" />
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -206,7 +215,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             
             {/* Left: Text */}
-            <div className="lg:col-span-7 space-y-6">
+            <FadeIn direction="right" className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-4">
                 <div className="w-12 h-px bg-primary"></div>
                 <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs">Message from the Managing Director</span>
@@ -228,14 +237,14 @@ export default function AboutPage() {
                   <p className="text-forest font-bold text-xl font-serif">Dr. Managing Director (MD, FASMB)</p>
                   <p className="text-gray-400 text-sm mt-1">Managing Director, JMS Medical Hospitals</p>
                 </div>
-                <Button className="hidden sm:flex bg-white border border-gray-200 hover:border-primary text-forest hover:text-primary px-8 py-3 rounded-full font-bold transition transform hover:-translate-y-1 shadow-sm">
+                <button className="hidden sm:flex bg-white border border-gray-200 hover:border-primary text-forest hover:text-primary px-8 py-3 rounded-full font-bold transition transform hover:-translate-y-1 shadow-sm">
                   Read Full Message
-                </Button>
+                </button>
               </div>
-            </div>
+            </FadeIn>
 
             {/* Right: Image */}
-            <div className="lg:col-span-5 relative">
+            <FadeIn delay={0.4} direction="left" className="lg:col-span-5 relative">
               <div className="relative p-2 bg-white rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.05)] border border-gray-100 max-w-md mx-auto">
                 <div className="aspect-square sm:aspect-[4/3] lg:aspect-square max-h-[400px] rounded-[2rem] overflow-hidden relative">
                   <img src="/images/hero_doctor.png" alt="Managing Director" className="w-full h-full object-cover object-top" />
@@ -251,7 +260,7 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-            </div>
+            </FadeIn>
 
           </div>
         </div>
@@ -402,12 +411,23 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {gallery.map((img, i) => (
-              <div key={i} className="bg-white p-2 border border-gray-200 shadow-sm rounded-2xl group cursor-pointer">
-                <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-gray-100">
-                  <img src={img} alt={`Gallery ${i}`} className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" />
-                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition duration-300 mix-blend-multiply"></div>
+              <FadeIn key={i} delay={i * 0.15} direction="up" className="relative w-full aspect-[4/3] perspective-1000 mx-auto">
+                {/* 3D Container */}
+                <div className="relative w-full h-full rounded-[2rem] bg-white p-3 shadow-[10px_10px_30px_#d1d5db,-10px_-10px_30px_#ffffff] transform hover:rotate-y-2 hover:rotate-x-2 hover:-translate-y-2 transition-all duration-700 ease-out border border-gray-100 group cursor-pointer">
+                  
+                  {/* Inner Groove (Inset Shadow) */}
+                  <div className="w-full h-full rounded-[1.5rem] overflow-hidden shadow-[inset_0_4px_12px_rgba(0,0,0,0.15)] relative bg-gray-50 flex items-center justify-center">
+                    <img 
+                      src={img} 
+                      alt={`Gallery ${i}`} 
+                      className="w-full h-full object-cover transform scale-[1.02] group-hover:scale-110 transition-transform duration-1000"
+                    />
+                    
+                    {/* Subtle glare effect */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                  </div>
                 </div>
-              </div>
+              </FadeIn>
             ))}
           </div>
         </div>
