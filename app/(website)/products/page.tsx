@@ -286,11 +286,15 @@ export default async function ProductsPage(props: {
                     )}
                     
                     {product.photo ? (
-                      <img 
-                        src={product.photo} 
-                        alt={product.name} 
-                        className="max-h-full object-contain group-hover:scale-110 group-hover:-rotate-2 transition-transform duration-700 ease-out drop-shadow-xl mix-blend-multiply" 
-                      />
+                      <div className="relative w-full h-full p-4">
+                        <Image 
+                          src={product.photo} 
+                          alt={product.name} 
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                          className="object-contain group-hover:scale-110 group-hover:-rotate-2 transition-transform duration-700 ease-out drop-shadow-xl mix-blend-multiply p-4" 
+                        />
+                      </div>
                     ) : (
                       <div className="w-16 h-16 bg-white/30 border border-white/50 rounded-full flex items-center justify-center backdrop-blur-sm">
                         <span className="text-white text-[10px] uppercase tracking-widest font-bold">No Img</span>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/UI/Button";
 import { FadeIn } from "@/components/UI/FadeIn";
 
@@ -58,9 +59,16 @@ export default function AboutPage() {
                 </p>
               </FadeIn>
             </div>
-            <FadeIn delay={0.4} direction="left" className="w-full lg:w-1/2 relative">
+            <FadeIn delay={0.4} direction="left" className="w-full lg:w-1/2 relative h-[400px] lg:h-auto">
               <div className="absolute inset-0 bg-primary/5 translate-x-6 translate-y-6 rounded-[2.5rem]"></div>
-              <img src="/images/facilities_intro.png" alt="Facility" className="relative w-full aspect-[4/3] object-cover rounded-[2.5rem] shadow-2xl" />
+              <Image 
+                src="/images/facilities_intro.png" 
+                alt="Facility" 
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="relative w-full aspect-[4/3] object-cover rounded-[2.5rem] shadow-2xl" 
+              />
             </FadeIn>
           </div>
         </div>
@@ -247,7 +255,13 @@ export default function AboutPage() {
             <FadeIn delay={0.4} direction="left" className="lg:col-span-5 relative">
               <div className="relative p-2 bg-white rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.05)] border border-gray-100 max-w-md mx-auto">
                 <div className="aspect-square sm:aspect-[4/3] lg:aspect-square max-h-[400px] rounded-[2rem] overflow-hidden relative">
-                  <img src="/images/hero_doctor.png" alt="Managing Director" className="w-full h-full object-cover object-top" />
+                  <Image 
+                    src="/images/hero_doctor.png" 
+                    alt="Managing Director" 
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover object-top" 
+                  />
                 </div>
                 {/* Floating Badge */}
                 <div className="absolute -bottom-6 -left-6 bg-white px-6 py-4 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4">
@@ -417,10 +431,12 @@ export default function AboutPage() {
                   
                   {/* Inner Groove (Inset Shadow) */}
                   <div className="w-full h-full rounded-[1.5rem] overflow-hidden shadow-[inset_0_4px_12px_rgba(0,0,0,0.15)] relative bg-gray-50 flex items-center justify-center">
-                    <img 
+                    <Image 
                       src={img} 
                       alt={`Gallery ${i}`} 
-                      className="w-full h-full object-cover transform scale-[1.02] group-hover:scale-110 transition-transform duration-1000"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transform scale-[1.02] group-hover:scale-110 transition-transform duration-1000"
                     />
                     
                     {/* Subtle glare effect */}

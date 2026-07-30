@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/UI/Button';
 import { FadeIn } from '@/components/UI/FadeIn';
 
@@ -60,10 +61,13 @@ export default function HomePage() {
                   
                   {/* Inner Groove (Inset Shadow) */}
                   <div className="w-full h-full rounded-[2rem] overflow-hidden shadow-[inset_0_4px_12px_rgba(0,0,0,0.1)] relative">
-                    <img 
+                    <Image 
                       src="/images/surgical_microscope.png" 
                       alt="Advanced Surgical Microscope" 
-                      className="w-full h-full object-cover transform scale-105 group-hover:scale-110 transition-transform duration-1000"
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover transform scale-105 group-hover:scale-110 transition-transform duration-1000"
                     />
                     
                     {/* Subtle glare effect */}
@@ -91,7 +95,13 @@ export default function HomePage() {
             <FadeIn delay={0.4} direction="up">
               <div className="group rounded-3xl overflow-hidden shadow-xl border border-gray-100 bg-gray-50 flex flex-col h-full">
                 <div className="h-80 overflow-hidden relative">
-                  <img src="/images/surgical_microscope.png" alt="Surgical Microscope" className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" />
+                  <Image 
+                    src="/images/surgical_microscope.png" 
+                    alt="Surgical Microscope" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transform group-hover:scale-105 transition duration-500" 
+                  />
                 </div>
                 <div className="p-8">
                   <h3 className="text-2xl font-bold text-forest mb-3 font-serif">Advanced Surgical Microscopes</h3>
@@ -104,7 +114,13 @@ export default function HomePage() {
             <FadeIn delay={0.6} direction="up">
               <div className="group rounded-3xl overflow-hidden shadow-xl border border-gray-100 bg-gray-50 flex flex-col h-full">
                 <div className="h-80 overflow-hidden relative">
-                  <img src="/images/endoscopy_system.png" alt="Endoscopy System" className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500" />
+                  <Image 
+                    src="/images/endoscopy_system.png" 
+                    alt="Endoscopy System" 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transform group-hover:scale-105 transition duration-500" 
+                  />
                 </div>
                 <div className="p-8">
                   <h3 className="text-2xl font-bold text-forest mb-3 font-serif">HD Endoscopy Systems</h3>
