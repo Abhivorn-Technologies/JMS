@@ -44,20 +44,6 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen bg-[#f0f9ff] flex items-center justify-center p-4 lg:p-8 relative overflow-hidden">
       
-      {/* Floating Back Button (Moved outside main container for better mobile positioning) */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="absolute top-4 left-4 lg:top-8 lg:left-8 z-30"
-      >
-        <Link href="/" className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-md border border-gray-200 rounded-full text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#0a192f] transition-all shadow-sm">
-          <FiArrowLeft className="w-4 h-4" />
-          <span className="hidden sm:inline">Back to Home</span>
-          <span className="sm:hidden">Back</span>
-        </Link>
-      </motion.div>
-
       {/* Main Container */}
       <motion.div 
         initial={{ opacity: 0, y: 30, scale: 0.98 }}
@@ -66,6 +52,20 @@ export default function AdminLoginPage() {
         className="bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_20px_80px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row w-full max-w-[1100px] overflow-hidden relative min-h-[500px] lg:min-h-[650px] z-10"
       >
         
+        {/* Floating Back Button (Inside main container) */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="absolute top-4 left-4 lg:top-8 lg:left-8 z-30"
+        >
+          <Link href="/" className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-md border border-gray-200 rounded-full text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#0a192f] transition-all shadow-sm">
+            <FiArrowLeft className="w-4 h-4" />
+            <span className="hidden sm:inline">Back to Home</span>
+            <span className="sm:hidden">Back</span>
+          </Link>
+        </motion.div>
+
         {/* Left Side - Presentation (Hidden on mobile for a clean login experience) */}
         <div className="hidden lg:flex w-full lg:w-1/2 p-14 flex-col justify-center items-center relative border-r border-gray-100 bg-white">
           <motion.div 
