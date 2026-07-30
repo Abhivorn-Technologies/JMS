@@ -44,7 +44,7 @@ export default async function ProductsPage(props: {
         category: 'Surgical',
         description: 'High-precision surgical microscope designed for detailed ENT and neurosurgical procedures. Features brilliant optics and ergonomic handling.',
         price: 15400.00,
-        photo: '/images/WhatsApp Image 2026-07-29 at 10.46.34 AM.jpeg',
+        photo: '/images/surgical_microscope.png',
         badge: 'Bestseller'
       },
       {
