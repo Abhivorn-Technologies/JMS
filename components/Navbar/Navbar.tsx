@@ -22,14 +22,14 @@ export const Navbar = () => {
 
   return (
     <nav className="sticky top-0 bg-white border-b border-gray-100 z-50 transition-all duration-300 shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-3 text-2xl font-bold text-forest">
-          <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-serif shadow-lg">
+        <Link href="/" className="flex items-center space-x-2 sm:space-x-3 text-2xl font-bold text-forest">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-primary-dark rounded-xl flex items-center justify-center text-white font-serif shadow-lg text-sm sm:text-base">
             JMS
           </div>
-          <span className="font-serif tracking-tight text-3xl">Medical</span>
+          <span className="font-serif tracking-tight text-xl sm:text-3xl">Medical</span>
         </Link>
 
         {/* Desktop Menu */}
@@ -50,7 +50,7 @@ export const Navbar = () => {
           })}
         </div>
 
-        {/* Right Action Button */}
+        {/* Right Action Button (Desktop) */}
         <div className="hidden md:block">
           <Link href="/contact">
             <Button className="bg-primary text-white hover:bg-primary-dark px-6 py-2.5 rounded-full shadow-md text-sm font-bold">
@@ -59,11 +59,11 @@ export const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        {/* Mobile Menu Button - Right aligned */}
+        <div className="md:hidden flex items-center justify-end">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-forest focus:outline-none p-2"
+            className="text-gray-500 hover:bg-gray-50 transition-colors rounded-full p-2 -mr-2 focus:outline-none"
           >
             {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
           </button>
@@ -79,7 +79,7 @@ export const Navbar = () => {
             exit={{ height: 0, opacity: 0 }}
             className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
           >
-            <div className="flex flex-col py-4 px-6 space-y-4">
+            <div className="flex flex-col py-6 px-4 space-y-1 mx-auto max-w-sm">
               {navItems.map((item) => {
                 const isActive = pathname === item.href;
                 return (
@@ -87,21 +87,16 @@ export const Navbar = () => {
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className={`text-sm font-medium transition-colors ${
-                      isActive ? 'text-primary' : 'text-gray-600 hover:text-primary'
+                    className={`text-[13px] py-4 px-5 rounded-2xl transition-all flex items-center justify-between ${
+                      isActive 
+                        ? 'bg-gray-50 text-gray-900 font-bold shadow-[inset_0_1px_3px_rgba(0,0,0,0.02)]' 
+                        : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium'
                     }`}
                   >
-                    {item.name}
+                    <span>{item.name}</span>
                   </Link>
                 );
               })}
-              <div className="pt-4 border-t border-gray-100">
-                <Link href="/contact" onClick={() => setIsOpen(false)}>
-                  <Button className="bg-primary text-white w-full rounded-full py-3 shadow-sm font-bold">
-                    Make An Appointment
-                  </Button>
-                </Link>
-              </div>
             </div>
           </motion.div>
         )}

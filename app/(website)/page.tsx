@@ -5,16 +5,16 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-background min-h-[85vh] flex items-center overflow-hidden pt-20 pb-16">
+      <section className="relative bg-background lg:min-h-[85vh] flex lg:items-center overflow-hidden pt-12 lg:pt-20 pb-12 lg:pb-16">
         {/* Dynamic Background Elements */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-primary-light/40 to-transparent rounded-bl-[100px] -z-10"></div>
         <div className="absolute -left-20 top-20 w-64 h-64 bg-hospital/10 rounded-full blur-3xl -z-10"></div>
         <div className="absolute right-20 bottom-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10"></div>
 
-        <div className="relative w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="relative w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 lg:items-center mt-4 lg:mt-0">
           
           {/* Left Text Area */}
-          <div className="lg:col-span-5 space-y-8 z-10 pt-10 lg:pt-0">
+          <div className="lg:col-span-5 space-y-6 z-10">
             <div className="inline-block px-4 py-2 bg-primary-light/50 text-primary font-bold text-sm rounded-full tracking-wider uppercase mb-2">
               Next-Gen Medical Tech
             </div>
