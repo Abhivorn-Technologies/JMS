@@ -3,10 +3,8 @@ import Image from 'next/image';
 import dbConnect from '@/lib/mongodb';
 import Product from '@/models/Product';
 import { Button } from '@/components/UI/Button';
-import { unstable_cache } from 'next/cache';
 
-const getCachedProducts = unstable_cache(
-  async (search: string, categoryParam: string, page: number, limit: number) => {
+const getCachedProducts = async (search: string, categoryParam: string, page: number, limit: number) => {
     try {
       await dbConnect();
       let query: any = {};
@@ -29,10 +27,7 @@ const getCachedProducts = unstable_cache(
       console.error("Database connection failed, using mock data for UI preview", error);
       return { totalProducts: 0, products: [], error: true };
     }
-  },
-  ['products-db-cache'],
-  { revalidate: 60 } // Revalidates cache every 60 seconds
-);
+  };
 
 export default async function ProductsPage(props: {
   searchParams?: Promise<{ search?: string; page?: string; category?: string }>;
@@ -332,11 +327,11 @@ export default async function ProductsPage(props: {
                     <div className="flex items-end justify-between mt-auto">
                       <div>
                          <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-0.5">PRICE</p>
-                        <span className="text-xl font-black text-gray-900 tracking-tight">${product.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                        <span className="text-xl font-black text-gray-900 tracking-tight">₹{product.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                       </div>
-                      <Link href={`/products/${product._id.toString()}`}>
-                        <Button className="bg-[#666f8e] hover:bg-[#4f5673] text-white px-5 py-2 rounded-lg font-bold shadow-sm transition-colors text-xs">
-                          View
+                      <Link href="/contact">
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-bold shadow-sm transition-colors text-xs">
+                          Connect
                         </Button>
                       </Link>
                     </div>

@@ -191,7 +191,7 @@ export default async function ProductDetailsPage(props: { params: Promise<{ id: 
             <div className="p-10 lg:p-16 flex flex-col justify-center bg-gray-50/50">
               <div className="mb-8">
                 <p className="text-sm text-gray-500 font-medium mb-2 uppercase tracking-wide">Investment Value</p>
-                <div className="text-4xl lg:text-5xl font-bold text-forest">${product.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                <div className="text-4xl lg:text-5xl font-bold text-forest">₹{product.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
               </div>
               
               <h3 className="text-xl font-bold text-forest mb-4 font-serif">Product Overview</h3>
@@ -242,7 +242,7 @@ export default async function ProductDetailsPage(props: { params: Promise<{ id: 
                   <div className="p-6">
                     <p className="text-primary text-xs font-bold uppercase tracking-widest mb-2">{p.category || 'Equipment'}</p>
                     <h4 className="text-lg font-bold text-forest line-clamp-1 mb-2 group-hover:text-primary transition-colors">{p.name}</h4>
-                    <div className="text-forest font-bold">${p.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                    <div className="text-forest font-bold">₹{p.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                   </div>
                 </Link>
               ))}

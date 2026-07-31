@@ -26,9 +26,11 @@ export async function GET(req: Request) {
     const search = searchParams.get('search') || '';
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
+    const category = searchParams.get('category') || 'All';
     
-    const query = search ? { name: { $regex: search, $options: 'i' } } : {};
-    
+    let query: any = {};
+    if (search) query.name = { $regex: search, $options: 'i' };
+    if (category !== 'All') query.category = category;
     const products = await Product.find(query)
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)

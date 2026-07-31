@@ -22,8 +22,20 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    category: {
+      type: String,
+      required: false,
+      default: 'Equipment'
+    },
+    badge: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );
 
-export default mongoose.models.Product || mongoose.model('Product', ProductSchema);
+if (mongoose.models.Product) {
+  delete mongoose.models.Product;
+}
+export default mongoose.model('Product', ProductSchema);
