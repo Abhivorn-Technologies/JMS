@@ -126,6 +126,7 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
     try {
       if (formData.name.length < 3) return toast.error('Name must be at least 3 characters');
       if (Number(formData.price) < 0) return toast.error('Price cannot be negative');
+      if (!formData.photo) return toast.error('Please upload a product image');
 
       const payload = {
         ...formData,
@@ -154,7 +155,7 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
     }
   };
 
-  const inputClasses = "w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#3B58E7]/20 focus:border-[#3B58E7] transition-all text-sm text-[#0f172a] shadow-sm";
+  const inputClasses = "w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#3B58E7]/20 focus:border-[#3B58E7] transition-all text-sm text-[#0f172a] shadow-sm";
   const labelClasses = "block text-[13px] font-bold text-[#0f172a] mb-2 tracking-wide uppercase";
 
   if (isFetching) {
@@ -166,131 +167,137 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
   }
 
   return (
-    <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-12 pt-4">
+    <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-0">
       {/* Header */}
-      <div className="mb-8">
-        <Link href="/admin/products" className="inline-flex items-center text-[#3B58E7] hover:text-[#2B44C1] text-sm font-bold mb-4 transition-colors">
+      <div className="mb-3">
+        <Link href="/admin/products" className="inline-flex items-center text-[#3B58E7] hover:text-[#2B44C1] text-sm font-bold mb-3 transition-colors">
           <HiOutlineArrowLeft className="w-4 h-4 mr-2" strokeWidth={2} />
           Back to Catalog
         </Link>
         <h2 className="text-3xl font-black text-[#0f172a] tracking-tight">Edit Product</h2>
-        <p className="text-gray-500 text-sm mt-1">Update equipment listing details and specifications.</p>
       </div>
 
-      {/* Main Card */}
+      {/* Main Card (No redundant header, uncompressed spacing) */}
       <div className="bg-white rounded-2xl shadow-[0_4px_25px_-4px_rgba(0,0,0,0.05)] border border-gray-100 overflow-hidden">
-        <div className="bg-gray-50/50 px-8 py-5 border-b border-gray-100">
-          <h3 className="text-sm font-bold text-[#0f172a] uppercase tracking-wider">Product Details</h3>
-        </div>
-        
-        <div className="px-4 sm:px-8 py-6 sm:py-8">
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div>
-              <label className={labelClasses}>Product Name <span className="text-[#ff003c]">*</span></label>
-              <input 
-                type="text" 
-                name="name"
-                required
-                minLength={2}
-                maxLength={100}
-                value={formData.name}
-                onChange={handleChange}
-                className={inputClasses} 
-              />
-            </div>
-
-            <div>
-              <label className={labelClasses}>Description <span className="text-[#ff003c]">*</span></label>
-              <textarea 
-                name="description"
-                required
-                maxLength={2000}
-                rows={5}
-                value={formData.description}
-                onChange={handleChange}
-                className={inputClasses} 
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <label className={labelClasses}>Price (₹) <span className="text-[#ff003c]">*</span></label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+        <div className="px-4 sm:px-8 py-5 sm:py-6">
+          <form id="product-form" onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              
+              {/* Left Column: Text Inputs */}
+              <div className="lg:col-span-2 space-y-5">
+                <div>
+                  <label className={labelClasses}>Product Name <span className="text-[#ff003c]">*</span></label>
                   <input 
-                    type="number" 
-                    name="price"
+                    type="text" 
+                    name="name"
                     required
-                    min="0"
-                    max="999999999"
-                    step="any"
-                    value={formData.price}
+                    minLength={2}
+                    maxLength={100}
+                    value={formData.name}
                     onChange={handleChange}
-                    className={`${inputClasses} pl-9`} 
+                    className={inputClasses} 
                   />
                 </div>
-              </div>
-              
-              <div>
-                <label className={labelClasses}>Category</label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  className={`${inputClasses} appearance-none font-medium cursor-pointer custom-select`}
-                >
-                  <option value="Surgical">Surgical</option>
-                  <option value="Endoscopy">Endoscopy</option>
-                  <option value="Imaging">Imaging</option>
-                  <option value="Equipment">Equipment</option>
-                </select>
-              </div>
-            </div>
 
-            <div className="pt-2">
-              <label className={labelClasses}>Product Image</label>
-              
-              <label htmlFor="file-upload" className="mt-2 w-full max-w-md flex flex-col justify-center items-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-2xl hover:border-blue-500 hover:bg-blue-50/50 transition-all cursor-pointer relative group overflow-hidden bg-gray-50/30">
-                <input id="file-upload" name="file-upload" type="file" accept="image/*" className="sr-only" onChange={handleImageUpload} />
-                
-                {formData.photo ? (
-                  <>
-                    <div className="relative h-48 w-full max-w-sm rounded-xl overflow-hidden shadow-sm border border-gray-100 bg-white">
-                      <img src={formData.photo} alt="Preview" className="h-full w-full object-contain" />
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-[2px]">
-                        <div className="bg-white text-gray-900 px-4 py-2 rounded-lg font-bold text-sm shadow-lg flex items-center gap-2">
-                          <HiOutlinePhotograph size={18} className="text-blue-600" />
-                          Click to Replace Image
+                <div>
+                  <label className={labelClasses}>Description <span className="text-[#ff003c]">*</span></label>
+                  <textarea 
+                    name="description"
+                    required
+                    maxLength={2000}
+                    rows={4}
+                    value={formData.description}
+                    onChange={handleChange}
+                    className={`${inputClasses} min-h-[100px] resize-y py-3`} 
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className={labelClasses}>Price (₹) <span className="text-[#ff003c]">*</span></label>
+                    <div className="relative">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">₹</span>
+                      <input 
+                        type="number" 
+                        name="price"
+                        required
+                        min="0"
+                        max="999999999"
+                        step="any"
+                        value={formData.price}
+                        onChange={handleChange}
+                        className={`${inputClasses} pl-9`} 
+                      />
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label className={labelClasses}>Category</label>
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                      className={`${inputClasses} appearance-none font-medium cursor-pointer custom-select`}
+                    >
+                      <option value="Surgical">Surgical</option>
+                      <option value="Endoscopy">Endoscopy</option>
+                      <option value="Imaging">Imaging</option>
+                      <option value="Equipment">Equipment</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Image Upload */}
+              <div className="lg:col-span-1">
+                <label className={labelClasses}>Product Image <span className="text-[#ff003c]">*</span></label>
+                <label htmlFor="file-upload" className="mt-2 w-full h-[calc(100%-28px)] min-h-[220px] flex flex-col justify-center items-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-2xl hover:border-blue-500 hover:bg-blue-50/50 transition-all cursor-pointer relative group overflow-hidden bg-gray-50/30">
+                  <input id="file-upload" name="file-upload" type="file" accept="image/*" className="sr-only" onChange={handleImageUpload} />
+                  
+                  {formData.photo ? (
+                    <div className="absolute inset-0 w-full h-full bg-white z-10 p-2">
+                      <div className="relative w-full h-full rounded-xl overflow-hidden border border-gray-100 shadow-sm flex items-center justify-center bg-gray-100">
+                        {/* Blurred background to fill dead space */}
+                        <img src={formData.photo} alt="" className="absolute inset-0 h-full w-full object-cover blur-xl opacity-60 scale-110" />
+                        
+                        {/* Actual uncropped image */}
+                        <img src={formData.photo} alt="Preview" className="relative h-full w-full object-contain z-10" />
+                        
+                        <div className="absolute inset-0 z-20 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
+                          <div className="bg-white text-gray-900 px-5 py-2.5 rounded-xl font-bold text-sm shadow-xl flex items-center gap-2 transform group-hover:scale-105 transition-transform">
+                            <HiOutlinePhotograph size={20} className="text-[#3B58E7]" />
+                            Replace Image
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-400 font-medium mt-4">PNG, JPG, GIF up to 10MB</p>
-                  </>
-                ) : (
-                  <div className="text-center space-y-4">
-                    <div className="mx-auto w-16 h-16 bg-blue-100/50 rounded-full flex items-center justify-center text-blue-600 group-hover:scale-110 group-hover:bg-blue-100 transition-all">
-                      <HiOutlinePhotograph size={32} />
+                  ) : (
+                    <div className="text-center space-y-4">
+                      <div className="mx-auto w-16 h-16 bg-blue-100/50 rounded-full flex items-center justify-center text-blue-600 group-hover:scale-110 group-hover:bg-blue-100 transition-all">
+                        <HiOutlinePhotograph size={32} />
+                      </div>
+                      <div>
+                        <span className="font-bold text-blue-600 text-lg block mb-1">Click to upload</span>
+                        <span className="text-gray-500 text-sm font-medium">or drag and drop</span>
+                      </div>
+                      <p className="text-xs text-gray-400 font-medium">PNG, JPG, GIF up to 10MB</p>
                     </div>
-                    <div>
-                      <span className="font-bold text-blue-600 text-lg block mb-1">Click to upload</span>
-                      <span className="text-gray-500 text-sm font-medium">or drag and drop</span>
-                    </div>
-                    <p className="text-xs text-gray-400 font-medium">PNG, JPG, GIF up to 10MB</p>
-                  </div>
-                )}
-              </label>
-            </div>
+                  )}
+                </label>
+              </div>
 
-            <div className="pt-8 mt-8 border-t border-gray-100 flex justify-end space-x-4">
-              <Link href="/admin/products">
-                <button type="button" className="px-6 py-3 rounded-xl font-bold text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 transition-all text-sm">
+            </div>
+            
+            <div className="pt-5 mt-5 border-t border-gray-100 flex flex-col-reverse sm:flex-row sm:justify-end gap-3 sm:gap-4">
+              <Link href="/admin/products" className="w-full sm:w-auto">
+                <button type="button" className="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 hover:text-gray-900 transition-all text-sm shadow-sm">
                   Cancel
                 </button>
               </Link>
               <button 
                 type="submit" 
                 disabled={isLoading}
-                className="px-8 py-3 rounded-xl font-bold text-white bg-[#3B58E7] hover:bg-primary-dark transition-all shadow-lg hover:shadow-xl text-sm flex items-center justify-center min-w-[140px] disabled:opacity-70"
+                className="w-full sm:w-auto px-8 py-3 rounded-xl font-bold text-white bg-gradient-to-tr from-[#3B58E7] to-[#253da8] hover:from-[#2B44C1] hover:to-[#1e328a] transition-all shadow-md hover:shadow-lg text-sm flex items-center justify-center min-w-[140px] disabled:opacity-70 whitespace-nowrap"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>

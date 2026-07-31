@@ -87,7 +87,7 @@ export default function FacilitiesPage() {
     <div className="flex flex-col bg-white">
       
       {/* Premium Hero Section */}
-      <section className="relative h-[calc(100vh-72px)] min-h-[500px] flex items-center justify-center bg-[#0a192f] overflow-hidden">
+      <section className="relative min-h-[calc(100vh-72px)] flex items-center justify-center bg-[#0a192f] overflow-hidden py-20">
         <div className="absolute inset-0 z-0">
           <img src="/images/facilities_hero.png" alt="Facilities" className="w-full h-full object-cover opacity-20 mix-blend-luminosity" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-transparent to-transparent"></div>
@@ -188,7 +188,7 @@ export default function FacilitiesPage() {
       </section>
 
       {/* Modern Split Layout - Clean and Leveled */}
-      <section className="relative bg-white h-[calc(100vh-72px)] min-h-[600px] flex items-center overflow-hidden">
+      <section className="relative bg-white min-h-[calc(100vh-72px)] flex items-center overflow-hidden py-20">
         {/* Subtle Gradient Glows (No dots, pure clean elegance) */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-50/70 rounded-full blur-[100px] opacity-80 pointer-events-none -translate-y-1/4 translate-x-1/4"></div>
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-cyan-50/40 rounded-full blur-[100px] pointer-events-none translate-y-1/4 -translate-x-1/4"></div>
@@ -294,7 +294,7 @@ export default function FacilitiesPage() {
       </section>
 
       {/* Premium Unified Contact Section - Best Organized Layout */}
-      <section className="relative bg-[#f8f9fa] h-[calc(100vh-72px)] min-h-[850px] flex items-center py-12">
+      <section className="relative bg-[#f8f9fa] min-h-[calc(100vh-72px)] lg:min-h-[850px] flex items-center py-16 lg:py-24">
         <div className="max-w-6xl mx-auto px-6 w-full">
           
           {/* Unified Mega Card Container */}

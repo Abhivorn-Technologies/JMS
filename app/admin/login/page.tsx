@@ -52,17 +52,16 @@ export default function AdminLoginPage() {
         className="bg-white rounded-[24px] lg:rounded-[32px] shadow-[0_20px_80px_rgba(0,0,0,0.08)] flex flex-col lg:flex-row w-full max-w-[1100px] overflow-hidden relative min-h-[500px] lg:min-h-[650px] z-10"
       >
         
-        {/* Floating Back Button (Inside main container) */}
+        {/* Floating Back Button (Desktop Only) */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="absolute top-4 left-4 lg:top-8 lg:left-8 z-30"
+          className="hidden lg:block absolute top-8 left-8 z-30"
         >
           <Link href="/" className="flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-md border border-gray-200 rounded-full text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-[#0a192f] transition-all shadow-sm">
             <FiArrowLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Back to Home</span>
-            <span className="sm:hidden">Back</span>
+            <span>Back to Home</span>
           </Link>
         </motion.div>
 
@@ -108,17 +107,22 @@ export default function AdminLoginPage() {
         {/* Right Side - Login Form */}
         <div className="w-full lg:w-1/2 p-8 sm:p-10 lg:p-16 flex flex-col items-center justify-center bg-white relative">
           
+          {/* Mobile Back Button (In document flow) */}
+          <div className="w-full max-w-[360px] flex justify-start mb-8 lg:hidden">
+            <Link href="/" className="flex items-center gap-2 text-[13px] font-bold text-gray-400 hover:text-[#0a192f] transition-colors">
+              <FiArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </Link>
+          </div>
+
           {/* Brand Logo Top */}
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex items-center space-x-2 text-forest mb-8 mt-4 lg:mt-0"
+            className="flex items-center justify-center mb-8"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-[#0a192f] to-[#112a52] rounded-xl flex items-center justify-center text-white font-serif shadow-md">
-              JMS
-            </div>
-            <span className="font-serif tracking-tight text-2xl font-bold text-[#0a192f]">Medical</span>
+            <span className="font-serif tracking-tight text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-500 drop-shadow-sm">JMS</span>
           </motion.div>
 
           <motion.div 

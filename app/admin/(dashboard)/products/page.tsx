@@ -70,15 +70,15 @@ export default function AdminProductsPage() {
           </div>
         </div>
         
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           {/* Green active badge from image */}
-          <div className="bg-[#3B58E7]/10 text-[#3B58E7] border border-[#3B58E7]/20 px-4 py-1.5 rounded-full text-sm font-bold flex items-center shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#3B58E7] mr-2"></span>
+          <div className="whitespace-nowrap bg-[#3B58E7]/10 text-[#3B58E7] border border-[#3B58E7]/20 px-3 sm:px-4 py-1.5 rounded-full text-[13px] sm:text-sm font-bold flex items-center shadow-sm">
+            <span className="shrink-0 w-2 h-2 rounded-full bg-[#3B58E7] mr-1.5 sm:mr-2"></span>
             {totalProducts} Products Listed
           </div>
-          <Link href="/admin/products/add">
-            <button className="flex items-center space-x-2 bg-[#3B58E7] hover:bg-[#2B44C1] text-white px-5 py-2.5 rounded-lg font-bold transition-all shadow-md text-sm">
-              <span className="text-lg leading-none">+</span>
+          <Link href="/admin/products/add" className="shrink-0">
+            <button className="whitespace-nowrap flex items-center justify-center space-x-1.5 sm:space-x-2 bg-[#3B58E7] hover:bg-[#2B44C1] text-white px-4 sm:px-5 py-2 rounded-lg font-bold transition-all shadow-md text-[13px] sm:text-sm">
+              <span className="text-lg leading-none shrink-0">+</span>
               <span>New Product</span>
             </button>
           </Link>
@@ -204,47 +204,52 @@ export default function AdminProductsPage() {
                 </tbody>
               </table>
 
-              {/* Mobile Card View */}
+              {/* Mobile Card View (Premium Professional UI) */}
               <div className="md:hidden flex flex-col divide-y divide-gray-100">
                 {products.map((product: any) => (
-                  <div key={product._id} className="p-4 bg-white hover:bg-gray-50 transition-colors flex flex-col space-y-3">
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-white rounded flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden p-1">
-                          {product.photo ? (
-                            <img src={product.photo} alt={product.name} className="w-full h-full object-contain" />
-                          ) : (
-                            <HiOutlineCube className="text-gray-300 w-5 h-5" />
-                          )}
-                        </div>
-                        <div>
-                          <p className="font-bold text-[#0f172a] text-sm leading-tight">{product.name}</p>
-                          <div className="flex items-center space-x-2 mt-1">
-                            <span className="text-[10px] font-bold text-gray-500 uppercase">{product.category || 'None'}</span>
-                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                            <span className="text-[10px] font-bold text-[#3B58E7]">Active</span>
-                          </div>
-                        </div>
+                  <div key={product._id} className="p-5 hover:bg-gray-50 transition-colors flex flex-col">
+                    <div className="flex items-start space-x-4 mb-4">
+                      {/* Premium large thumbnail with blurred backdrop */}
+                      <div className="w-24 h-24 shrink-0 rounded-2xl flex items-center justify-center border border-gray-100 shadow-sm overflow-hidden relative bg-gray-50/50">
+                        {product.photo ? (
+                          <>
+                            <img src={product.photo} alt="" className="absolute inset-0 h-full w-full object-cover blur-md opacity-50 scale-110" />
+                            <img src={product.photo} alt={product.name} className="relative h-full w-full object-contain p-1 z-10" />
+                          </>
+                        ) : (
+                          <HiOutlineCube className="text-gray-300 w-8 h-8" />
+                        )}
+                      </div>
+                      
+                      {/* Details */}
+                      <div className="flex-1 min-w-0 pt-0.5">
+                        <span className="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-[#3B58E7]/10 text-[#3B58E7] mb-2 uppercase tracking-wider">
+                          {product.category || 'Uncategorized'}
+                        </span>
+                        <h3 className="font-bold text-[#0f172a] text-[15px] leading-snug mb-1.5 line-clamp-2">
+                          {product.name}
+                        </h3>
+                        <span className="font-black text-[#0f172a] text-lg block">
+                          ₹{product.price?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+                        </span>
                       </div>
                     </div>
                     
-                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-50">
-                      <span className="font-black text-[#0f172a]">
-                        ₹{product.price?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
-                      </span>
-                      <div className="flex space-x-2">
-                        <Link href={`/admin/products/edit/${product._id}`}>
-                          <button className="flex items-center justify-center text-xs font-bold text-[#3B58E7] bg-[#3B58E7]/10 px-3 py-1.5 rounded transition-all border border-[#3B58E7]/20">
-                            Edit
-                          </button>
-                        </Link>
-                        <button 
-                          onClick={() => setDeleteConfirmId(product._id)}
-                          className="flex items-center justify-center text-xs font-bold text-[#ff003c] bg-[#ff003c]/10 px-3 py-1.5 rounded transition-all border border-[#ff003c]/20"
-                        >
-                          Delete
+                    {/* Action Buttons */}
+                    <div className="grid grid-cols-2 gap-3 pt-1">
+                      <Link href={`/admin/products/edit/${product._id}`} className="w-full">
+                        <button className="w-full flex items-center justify-center space-x-2 text-sm font-bold text-gray-700 bg-white hover:bg-gray-50 py-2.5 rounded-xl transition-all border-2 border-gray-200 shadow-sm">
+                          <HiOutlinePencil size={16} />
+                          <span>Edit</span>
                         </button>
-                      </div>
+                      </Link>
+                      <button 
+                        onClick={() => setDeleteConfirmId(product._id)}
+                        className="w-full flex items-center justify-center space-x-2 text-sm font-bold text-[#ff003c] bg-[#ff003c]/5 hover:bg-[#ff003c]/10 py-2.5 rounded-xl transition-all border-2 border-[#ff003c]/20 shadow-sm"
+                      >
+                        <HiOutlineTrash size={16} />
+                        <span>Delete</span>
+                      </button>
                     </div>
                   </div>
                 ))}

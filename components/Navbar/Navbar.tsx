@@ -26,7 +26,7 @@ export const Navbar = () => {
         
         {/* Logo */}
         <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
-          <span className="font-serif tracking-tight text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-500 drop-shadow-sm">JMS</span>
+          <span className="font-serif tracking-tight text-4xl sm:text-[40px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-500 drop-shadow-sm">JMS</span>
         </Link>
 
         {/* Desktop Menu */}
