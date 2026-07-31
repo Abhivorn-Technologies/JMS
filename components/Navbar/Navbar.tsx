@@ -74,39 +74,67 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Drawer Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 overflow-hidden shadow-xl"
-          >
-            <div className="flex flex-col py-6 px-4 space-y-1 mx-auto max-w-sm">
-              {navItems.map((item) => {
-                const isActive = item.name === 'Home' 
-                  ? pathname === '/' 
-                  : item.name === 'Admin'
-                    ? pathname.startsWith('/admin')
-                    : pathname.startsWith(item.href);
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`text-[13px] py-4 px-5 rounded-2xl transition-all flex items-center justify-between ${
-                      isActive 
-                        ? 'bg-gray-50 text-gray-900 font-bold shadow-[inset_0_1px_3px_rgba(0,0,0,0.02)]' 
-                        : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium'
-                    }`}
-                  >
-                    <span>{item.name}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </motion.div>
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[90] bg-black/40 backdrop-blur-sm md:hidden"
+              onClick={() => setIsOpen(false)}
+            />
+            
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="fixed inset-y-0 right-0 z-[100] w-[80%] max-w-sm bg-white flex flex-col md:hidden shadow-2xl"
+            >
+              {/* Header */}
+              <div className="px-6 py-5 flex items-center justify-between">
+                <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center">
+                  <span className="font-serif tracking-tight text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-500 drop-shadow-sm">JMS</span>
+                </Link>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="w-8 h-8 bg-gray-50 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+                >
+                  <HiX size={16} />
+                </button>
+              </div>
+              
+              {/* Links */}
+              <div className="flex-1 overflow-y-auto py-2 px-4 flex flex-col space-y-1">
+                {navItems.map((item) => {
+                  const isActive = item.name === 'Home' 
+                    ? pathname === '/' 
+                    : item.name === 'Admin'
+                      ? pathname.startsWith('/admin')
+                      : pathname.startsWith(item.href);
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`w-full py-3.5 px-4 rounded-xl transition-all text-[13px] ${
+                        isActive 
+                          ? 'bg-[#f4f6f8] text-[#0a192f] font-bold' 
+                          : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium'
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
