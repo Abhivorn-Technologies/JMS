@@ -32,7 +32,11 @@ export const Navbar = () => {
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = item.name === 'Home' 
+              ? pathname === '/' 
+              : item.name === 'Admin'
+                ? pathname.startsWith('/admin')
+                : pathname.startsWith(item.href);
             return (
               <Link
                 key={item.name}
@@ -78,7 +82,11 @@ export const Navbar = () => {
           >
             <div className="flex flex-col py-6 px-4 space-y-1 mx-auto max-w-sm">
               {navItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive = item.name === 'Home' 
+                  ? pathname === '/' 
+                  : item.name === 'Admin'
+                    ? pathname.startsWith('/admin')
+                    : pathname.startsWith(item.href);
                 return (
                   <Link
                     key={item.name}
