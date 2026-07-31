@@ -21,6 +21,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
       toast.success('Logged out successfully');
+      setShowLogoutDialog(false);
       router.push('/admin/login');
     } catch (error) {
       toast.error('Failed to logout');

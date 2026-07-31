@@ -106,7 +106,7 @@ export default function HomePage() {
                 <div className="p-8">
                   <h3 className="text-2xl font-bold text-forest mb-3 font-serif">Advanced Surgical Microscopes</h3>
                   <p className="text-gray-600 mb-6">High-precision optics for neurosurgery, ENT, and ophthalmology, ensuring crystal-clear visualization.</p>
-                  <Link href="/products" className="text-primary font-bold hover:underline">View Details &rarr;</Link>
+
                 </div>
               </div>
             </FadeIn>
@@ -125,7 +125,7 @@ export default function HomePage() {
                 <div className="p-8">
                   <h3 className="text-2xl font-bold text-forest mb-3 font-serif">HD Endoscopy Systems</h3>
                   <p className="text-gray-600 mb-6">Complete clinical solutions including monitors, camera consoles, and microdebriders for minimally invasive procedures.</p>
-                  <Link href="/products" className="text-primary font-bold hover:underline">View Details &rarr;</Link>
+
                 </div>
               </div>
             </FadeIn>

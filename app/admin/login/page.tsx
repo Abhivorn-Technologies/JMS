@@ -131,7 +131,7 @@ export default function AdminLoginPage() {
             <p className="text-[13px] text-gray-500">Sign in to continue to Admin Dashboard</p>
           </motion.div>
           
-          <form onSubmit={handleLogin} className="w-full max-w-[360px] space-y-5 lg:space-y-6">
+          <form onSubmit={handleLogin} autoComplete="off" className="w-full max-w-[360px] space-y-5 lg:space-y-6">
             
             {/* Email Field */}
             <motion.div 
@@ -150,6 +150,7 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  autoComplete="off"
                   className="w-full pl-[42px] pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-teal-600 focus:border-teal-600 transition-all text-[13px]" 
                   placeholder="Enter the email" 
                 />
@@ -173,6 +174,7 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  autoComplete="new-password"
                   className="w-full pl-[42px] pr-12 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-teal-600 focus:border-teal-600 transition-all text-[13px]" 
                   placeholder="Enter password" 
                 />
