@@ -105,8 +105,7 @@ export default function AdminProductsPage() {
             <select
               value={category}
               onChange={(e) => { setCategory(e.target.value); setPage(1); }}
-              className="w-full sm:w-48 py-2.5 px-4 rounded-full border border-gray-200 bg-white text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3B58E7]/20 focus:border-[#3B58E7] shadow-sm appearance-none cursor-pointer font-medium"
-              style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
+              className="w-full sm:w-48 py-2.5 px-4 rounded-full border border-gray-200 bg-white text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#3B58E7]/20 focus:border-[#3B58E7] shadow-sm appearance-none cursor-pointer font-medium custom-select custom-select-small"
             >
               <option value="All">All Categories</option>
               {categories.filter(c => c !== 'All').map(c => (

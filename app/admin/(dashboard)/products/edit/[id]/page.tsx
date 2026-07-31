@@ -87,7 +87,20 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
   }, [params.id, router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    let { name, value } = e.target;
+    
+    // Strict sanitization based on security rules
+    if (name === 'name') {
+      // Only allow English letters, international letters, spaces, hyphens, periods, apostrophes. No numbers or special symbols.
+      value = value.replace(/[^a-zA-Z\u00C0-\u024F\u1E00-\u1EFF\s\-\.']/g, '');
+      if (value.length > 100) value = value.substring(0, 100);
+    } else if (name === 'description') {
+      // Strip dangerous characters: < > & " % ` ~ ! @ # $ ^ * + = [ ] { } | \ / ? ; :
+      value = value.replace(/[<>&"%`~!@#$^*+=\[\]{}|\\/?;:]/g, '');
+      if (value.length > 2000) value = value.substring(0, 2000);
+    }
+
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -178,8 +191,8 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
                 type="text" 
                 name="name"
                 required
-                minLength={3}
-                maxLength={150}
+                minLength={2}
+                maxLength={100}
                 value={formData.name}
                 onChange={handleChange}
                 className={inputClasses} 
@@ -191,7 +204,7 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
               <textarea 
                 name="description"
                 required
-                maxLength={5000}
+                maxLength={2000}
                 rows={5}
                 value={formData.description}
                 onChange={handleChange}
@@ -209,7 +222,8 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
                     name="price"
                     required
                     min="0"
-                    step="0.01"
+                    max="999999999"
+                    step="any"
                     value={formData.price}
                     onChange={handleChange}
                     className={`${inputClasses} pl-9`} 
@@ -223,8 +237,7 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className={`${inputClasses} appearance-none font-medium cursor-pointer`}
-                  style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 1rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
+                  className={`${inputClasses} appearance-none font-medium cursor-pointer custom-select`}
                 >
                   <option value="Surgical">Surgical</option>
                   <option value="Endoscopy">Endoscopy</option>
