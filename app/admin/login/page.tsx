@@ -148,7 +148,11 @@ export default function AdminLoginPage() {
                 <input 
                   type="email" 
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    // Strip dangerous and invalid characters from email: ( ) , : ; < > [ ] \ " space
+                    const sanitizedEmail = e.target.value.replace(/[()<>,;:\[\]\\"\s]/g, '');
+                    setEmail(sanitizedEmail);
+                  }}
                   required
                   autoComplete="off"
                   className="w-full pl-[42px] pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-1 focus:ring-teal-600 focus:border-teal-600 transition-all text-[13px]" 
