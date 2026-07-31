@@ -21,7 +21,7 @@ export const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-gray-100/50 z-50 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
+    <nav className="sticky top-0 bg-white border-b border-gray-100 z-50 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         
         {/* Logo */}
