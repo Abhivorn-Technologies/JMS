@@ -12,7 +12,7 @@ export default async function DashboardPage() {
   const recentProducts = await Product.find().sort({ createdAt: -1 }).limit(4).lean();
 
   return (
-    <div className="space-y-8 max-w-[1400px] mx-auto w-full">
+    <div className="space-y-8 max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4 pb-12">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-gray-100 pb-6">
         <div>
@@ -80,36 +80,36 @@ export default async function DashboardPage() {
         
         {/* Recent Products List - Sleek Table Look */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200/60 overflow-hidden">
-          <div className="flex justify-between items-center px-6 py-5 border-b border-gray-100 bg-gray-50/30">
-            <h3 className="text-sm font-bold text-[#0f172a] uppercase tracking-wider">Recently Added Products</h3>
-            <Link href="/admin/products" className="flex items-center text-xs font-bold text-[#3B58E7] hover:text-[#2B44C1] transition-colors uppercase tracking-wider">
+          <div className="flex justify-between items-center p-4 sm:px-6 sm:py-5 border-b border-gray-100 bg-gray-50/30 gap-2">
+            <h3 className="text-[12px] sm:text-sm font-bold text-gray-500 uppercase tracking-wider leading-tight">Recently Added Products</h3>
+            <Link href="/admin/products" className="flex items-center text-[11px] sm:text-xs font-bold text-[#3B58E7] hover:text-[#2B44C1] transition-colors uppercase tracking-wider whitespace-nowrap shrink-0">
               View All <HiOutlineArrowRight className="ml-1 w-3 h-3" />
             </Link>
           </div>
           
           <div className="divide-y divide-gray-100">
             {(recentProducts.length > 0 ? recentProducts : []).map((p: any) => (
-              <div key={p._id.toString()} className="flex items-center justify-between p-6 hover:bg-gray-50/50 transition-colors group">
-                <div className="flex items-center space-x-5">
-                  <div className="w-16 h-16 bg-white rounded flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden p-1">
+              <div key={p._id.toString()} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 hover:bg-gray-50/50 transition-colors group gap-3 sm:gap-0">
+                <div className="flex items-start sm:items-center space-x-3 sm:space-x-5">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 bg-white rounded flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden p-1">
                     {p.photo ? (
                       <img src={p.photo} alt={p.name} className="w-full h-full object-contain" />
                     ) : (
-                      <HiOutlineCube className="text-gray-300 w-6 h-6" />
+                      <HiOutlineCube className="text-gray-300 w-5 h-5 sm:w-6 sm:h-6" />
                     )}
                   </div>
-                  <div>
-                    <h4 className="font-bold text-[#0f172a] text-sm group-hover:text-[#3B58E7] transition-colors">{p.name}</h4>
-                    <div className="flex items-center space-x-3 mt-1.5">
-                      <span className="text-xs font-bold text-gray-500 tracking-wide uppercase">{p.category || 'Equipment'}</span>
-                      <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
-                      <span className="text-xs font-bold text-[#3B58E7]">Active</span>
+                  <div className="min-w-0">
+                    <h4 className="font-black text-[#0f172a] text-base group-hover:text-[#3B58E7] transition-colors truncate pr-2">{p.name}</h4>
+                    <div className="flex items-center space-x-2 sm:space-x-3 mt-1 sm:mt-1.5">
+                      <span className="text-[10px] sm:text-xs font-bold text-gray-500 tracking-wide uppercase truncate max-w-[80px] sm:max-w-none">{p.category || 'Equipment'}</span>
+                      <span className="w-1 h-1 bg-gray-300 rounded-full shrink-0"></span>
+                      <span className="text-[10px] sm:text-xs font-bold text-[#3B58E7]">Active</span>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col items-end">
-                  <p className="text-sm font-black text-[#0f172a]">₹{p.price?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}</p>
-                  <Link href={`/admin/products/edit/${p._id}`} className="text-xs font-bold text-gray-400 hover:text-[#3B58E7] mt-1.5 transition-colors">
+                <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 border-gray-100/80 pt-3 sm:pt-0 mt-2 sm:mt-0">
+                  <p className="text-[13px] sm:text-sm font-black text-[#0f172a]">₹{p.price?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}</p>
+                  <Link href={`/admin/products/edit/${p._id}`} className="text-xs font-bold text-[#3B58E7] bg-[#3B58E7]/10 sm:bg-transparent px-3 py-1 sm:px-0 sm:py-0 rounded sm:rounded-none sm:text-gray-400 hover:text-[#3B58E7] sm:mt-1.5 transition-colors">
                     Edit Details
                   </Link>
                 </div>

@@ -56,7 +56,7 @@ export default function AdminProductsPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-[1400px] mx-auto w-full">
+    <div className="space-y-6 max-w-[1400px] mx-auto w-full px-4 sm:px-6 lg:px-8 pb-12">
       {/* Top Header Row */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         {/* Title Area matching the image */}
@@ -115,42 +115,52 @@ export default function AdminProductsPage() {
           </div>
         </div>
 
-        {/* Table Area */}
+        {/* Table Area (Desktop Only) & Mobile Cards */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-white text-[#0f172a] text-[11px] uppercase tracking-wider border-b border-gray-100 font-bold">
-                <th className="px-6 py-4">PRODUCT TITLE</th>
-                <th className="px-6 py-4">PRICE</th>
-                <th className="px-6 py-4">CATEGORY</th>
-                <th className="px-6 py-4">STATUS</th>
-                <th className="px-6 py-4 text-right">OPTION</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {isLoading ? (
-                <tr>
-                  <td colSpan={5} className="p-16 text-center text-gray-500 font-medium">
-                    <div className="flex flex-col items-center justify-center animate-pulse">
-                      <div className="w-8 h-8 border-4 border-gray-200 border-t-[#0f172a] rounded-full animate-spin mb-4"></div>
-                      Loading records...
-                    </div>
-                  </td>
-                </tr>
-              ) : products.length === 0 ? (
-                <tr>
-                  <td colSpan={5} className="p-16 text-center">
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center p-16 min-h-[40vh]">
+              {/* Cool Pulsing Circle Animation */}
+              <div className="relative flex items-center justify-center w-16 h-16 mb-6">
+                <div className="absolute inset-0 border-4 border-gray-100 rounded-full"></div>
+                <div className="absolute inset-0 border-4 border-[#3B58E7] rounded-full border-t-transparent animate-spin"></div>
+                <div className="w-8 h-8 bg-[#3B58E7]/10 rounded-full animate-pulse"></div>
+              </div>
+
+              {/* Bouncing Text Animation */}
+              <div className="flex items-end space-x-1 font-bold text-gray-400 tracking-widest uppercase text-sm">
+                <span>Loading Records</span>
+                <div className="flex space-x-1 mb-0.5 ml-1">
+                  <span className="w-1.5 h-1.5 bg-[#3B58E7] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-[#3B58E7] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-[#3B58E7] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                </div>
+              </div>
+            </div>
+          ) : products.length === 0 ? (
+            <div className="p-16 text-center">
                     <div className="flex flex-col items-center justify-center">
                       <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center text-gray-300 mb-4">
                         <HiOutlineSearch size={32} />
                       </div>
-                      <h3 className="text-lg font-bold text-[#0f172a] mb-1">No records found</h3>
-                      <p className="text-gray-500 text-sm">Adjust your search or category filter.</p>
-                    </div>
-                  </td>
-                </tr>
-              ) : (
-                products.map((product: any, index: number) => (
+                <h3 className="text-lg font-bold text-[#0f172a] mb-1">No records found</h3>
+                <p className="text-gray-500 text-sm">Adjust your search or category filter.</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* Desktop Table View */}
+              <table className="hidden md:table w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-white text-[#0f172a] text-[11px] uppercase tracking-wider border-b border-gray-100 font-bold">
+                    <th className="px-6 py-4">PRODUCT TITLE</th>
+                    <th className="px-6 py-4">PRICE</th>
+                    <th className="px-6 py-4">CATEGORY</th>
+                    <th className="px-6 py-4">STATUS</th>
+                    <th className="px-6 py-4 text-right">OPTION</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {products.map((product: any, index: number) => (
                   <tr key={product._id} className="bg-white hover:bg-gray-50/50 transition-colors">
                     <td className="px-6 py-5">
                       <div className="flex items-start space-x-4">
@@ -174,26 +184,73 @@ export default function AdminProductsPage() {
                       </span>
                     </td>
 
-                    <td className="px-6 py-5 text-right">
-                      <div className="flex justify-end space-x-2">
+                      <td className="px-6 py-5 text-right">
+                        <div className="flex justify-end space-x-2">
+                          <Link href={`/admin/products/edit/${product._id}`}>
+                            <button className="w-8 h-8 flex items-center justify-center text-[#3B58E7] bg-transparent rounded hover:bg-[#3B58E7]/10 transition-all border border-[#3B58E7]/30">
+                              <HiOutlinePencil size={15} />
+                            </button>
+                          </Link>
+                          <button 
+                            onClick={() => setDeleteConfirmId(product._id)}
+                            className="w-8 h-8 flex items-center justify-center text-[#ff003c] bg-transparent rounded hover:bg-[#ff003c]/10 transition-all border border-[#ff003c]/30"
+                          >
+                            <HiOutlineTrash size={15} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {/* Mobile Card View */}
+              <div className="md:hidden flex flex-col divide-y divide-gray-100">
+                {products.map((product: any) => (
+                  <div key={product._id} className="p-4 bg-white hover:bg-gray-50 transition-colors flex flex-col space-y-3">
+                    <div className="flex justify-between items-start">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 bg-white rounded flex items-center justify-center border border-gray-200 shadow-sm overflow-hidden p-1">
+                          {product.photo ? (
+                            <img src={product.photo} alt={product.name} className="w-full h-full object-contain" />
+                          ) : (
+                            <HiOutlineCube className="text-gray-300 w-5 h-5" />
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-bold text-[#0f172a] text-sm leading-tight">{product.name}</p>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <span className="text-[10px] font-bold text-gray-500 uppercase">{product.category || 'None'}</span>
+                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                            <span className="text-[10px] font-bold text-[#3B58E7]">Active</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-50">
+                      <span className="font-black text-[#0f172a]">
+                        ₹{product.price?.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+                      </span>
+                      <div className="flex space-x-2">
                         <Link href={`/admin/products/edit/${product._id}`}>
-                          <button className="w-8 h-8 flex items-center justify-center text-[#3B58E7] bg-transparent rounded hover:bg-[#3B58E7]/10 transition-all border border-[#3B58E7]/30">
-                            <HiOutlinePencil size={15} />
+                          <button className="flex items-center justify-center text-xs font-bold text-[#3B58E7] bg-[#3B58E7]/10 px-3 py-1.5 rounded transition-all border border-[#3B58E7]/20">
+                            Edit
                           </button>
                         </Link>
                         <button 
                           onClick={() => setDeleteConfirmId(product._id)}
-                          className="w-8 h-8 flex items-center justify-center text-[#ff003c] bg-transparent rounded hover:bg-[#ff003c]/10 transition-all border border-[#ff003c]/30"
+                          className="flex items-center justify-center text-xs font-bold text-[#ff003c] bg-[#ff003c]/10 px-3 py-1.5 rounded transition-all border border-[#ff003c]/20"
                         >
-                          <HiOutlineTrash size={15} />
+                          Delete
                         </button>
                       </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Exact Pagination Footer matching Image 4 */}

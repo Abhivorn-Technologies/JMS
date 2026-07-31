@@ -166,7 +166,7 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
   }
 
   return (
-    <div className="max-w-5xl mx-auto w-full pb-12">
+    <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-12 pt-4">
       {/* Header */}
       <div className="mb-8">
         <Link href="/admin/products" className="inline-flex items-center text-[#3B58E7] hover:text-[#2B44C1] text-sm font-bold mb-4 transition-colors">
@@ -183,7 +183,7 @@ export default function EditProductPage(props: { params: Promise<{ id: string }>
           <h3 className="text-sm font-bold text-[#0f172a] uppercase tracking-wider">Product Details</h3>
         </div>
         
-        <div className="p-8">
+        <div className="px-4 sm:px-8 py-6 sm:py-8">
           <form onSubmit={handleSubmit} className="space-y-8">
             <div>
               <label className={labelClasses}>Product Name <span className="text-[#ff003c]">*</span></label>
