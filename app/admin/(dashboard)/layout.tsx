@@ -22,7 +22,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       await fetch('/api/auth/logout', { method: 'POST' });
       toast.success('Logged out successfully');
       setShowLogoutDialog(false);
-      router.push('/admin/login');
+      // Use window.location.replace for a hard redirect. 
+      // This completely wipes the Next.js router cache and replaces the history state 
+      // so the user cannot simply "swipe back" into the protected admin pages.
+      window.location.replace('/admin/login');
     } catch (error) {
       toast.error('Failed to logout');
     }

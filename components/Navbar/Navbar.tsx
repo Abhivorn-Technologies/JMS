@@ -21,12 +21,12 @@ export const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky top-0 bg-white border-b border-gray-100 z-50 transition-all duration-300 shadow-sm">
+    <nav className="sticky top-0 bg-white/80 backdrop-blur-md border-b border-gray-100/50 z-50 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
         
         {/* Logo */}
         <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
-          <span className="font-serif tracking-tight text-3xl sm:text-4xl text-primary font-bold">JMS</span>
+          <span className="font-serif tracking-tight text-3xl sm:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-500 drop-shadow-sm">JMS</span>
         </Link>
 
         {/* Desktop Menu */}
@@ -41,11 +41,14 @@ export const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`relative text-sm transition-colors ${
-                  isActive ? 'text-primary font-bold' : 'text-gray-500 hover:text-primary font-medium'
+                className={`relative text-sm transition-colors group py-1 ${
+                  isActive ? 'text-primary font-bold' : 'text-gray-600 hover:text-primary font-medium'
                 }`}
               >
                 {item.name}
+                <span className={`absolute left-0 bottom-0 h-[2px] bg-primary transition-all duration-300 rounded-full ${
+                  isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-100'
+                }`}></span>
               </Link>
             );
           })}
@@ -54,7 +57,7 @@ export const Navbar = () => {
         {/* Right Action Button (Desktop) */}
         <div className="hidden md:block">
           <Link href="/contact">
-            <Button className="bg-primary text-white hover:bg-primary-dark px-6 py-2.5 rounded-full shadow-md text-sm font-bold">
+            <Button className="bg-gradient-to-r from-primary to-primary-dark text-white hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300 px-6 py-2.5 rounded-full text-sm font-bold border-none">
               Make An Appointment
             </Button>
           </Link>
@@ -78,7 +81,7 @@ export const Navbar = () => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
+            className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 overflow-hidden shadow-xl"
           >
             <div className="flex flex-col py-6 px-4 space-y-1 mx-auto max-w-sm">
               {navItems.map((item) => {
